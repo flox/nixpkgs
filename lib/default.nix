@@ -107,6 +107,7 @@ let
       hiPrioSet;
     inherit (self.sources) pathType pathIsDirectory cleanSourceFilter
       cleanSource sourceByRegex sourceFilesBySuffices
+      sourceFilesByManifest sourceFilesByManifestJsonFile
       commitIdFromGitRepo cleanSourceWith pathHasContext
       canCleanSource pathIsRegularFile pathIsGitRepo;
     inherit (self.modules) evalModules unifyModuleSyntax

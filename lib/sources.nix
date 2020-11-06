@@ -119,6 +119,34 @@ rec {
       in type == "directory" || lib.any (ext: lib.hasSuffix ext base) exts;
     in cleanSourceWith { inherit filter; src = path; };
 
+  # Get all files as listed in the supplied manifest array.
+  # E.g. `sourceFilesByManifest path/to/src [files]'.
+  sourceFilesByManifest = path: manifest:
+    let filter = name: type:
+      # builtins.trace(
+      #   "sourceFilesByManifest() filter:" +
+      #   " name = " + name +
+      #   ", type = " + type +
+      #   ", result = " + (if (lib.any (x: x == name) manifest) then "true" else "false")
+      # )
+      lib.any (x: x == name) manifest;
+    in
+      # builtins.trace(
+      #   "sourceFilesByManifest(" +
+      #   " path = " + path +
+      #   " ) with " + builtins.toString ( builtins.length ( manifest ) ) +
+      #   " paths in manifest"
+      # )
+      cleanSourceWith { inherit filter; src = path; };
+
+  # Get all files as listed in a provided manifest.json file, such as that
+  # produced by "git ls-files | jq -R . | jq -s .".
+  # E.g. `sourceFilesByManifestJsonFile path/to/src path/to/manifest.json'.
+  sourceFilesByManifestJsonFile = path: manifestjsonfile:
+    let relativePaths = lib.importJSON manifestjsonfile;
+        manifest = map (x: path + "/${x}") relativePaths;
+    in sourceFilesByManifest path manifest;
+
   pathIsGitRepo = path: (tryEval (commitIdFromGitRepo path)).success;
 
   # Get the commit id of a git repo
