@@ -104,6 +104,10 @@ callPackage ./common.nix { inherit stdenv; } {
 
       test -f $out/etc/ld.so.cache && rm $out/etc/ld.so.cache
 
+      # Create symlink to Nix "system default" ld.so.cache to be managed
+      # with ldconfig(8).
+      ln -s /nix/etc/ld.so.$version.cache $out/etc/ld.so.cache
+
       if test -n "$linuxHeaders"; then
           # Include the Linux kernel headers in Glibc, except the `scsi'
           # subdirectory, which Glibc provides itself.
