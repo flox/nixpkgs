@@ -1,7 +1,16 @@
-diff -Naur glibc-2.27-orig/locale/loadarchive.c glibc-2.27/locale/loadarchive.c
---- glibc-2.27-orig/locale/loadarchive.c	2018-02-01 11:17:18.000000000 -0500
-+++ glibc-2.27/locale/loadarchive.c	2018-02-17 22:32:25.680169462 -0500
-@@ -123,6 +123,23 @@
+diff --git a/locale/loadarchive.c b/locale/loadarchive.c
+index ba0fe456..38f82117 100644
+--- a/locale/loadarchive.c
++++ b/locale/loadarchive.c
+@@ -43,6 +43,7 @@
+ 
+ /* Name of the locale archive file.  */
+ static const char archfname[] = COMPLOCALEDIR "/locale-archive";
++static const char nixDefaultLocaleArchive[] = "/nix/lib/locale/locale-archive";
+ 
+ /* Size of initial mapping window, optimal if large enough to
+    cover the header plus the initial locale.  */
+@@ -123,6 +124,25 @@ calculate_head_size (const struct locarhead *h)
    return MAX (namehash_end, MAX (string_end, locrectab_end));
  }
  
@@ -18,6 +27,8 @@ diff -Naur glibc-2.27-orig/locale/loadarchive.c glibc-2.27/locale/loadarchive.c
 +  if (fd < 0)
 +    fd = __open_nocancel (archfname, O_RDONLY|O_LARGEFILE|O_CLOEXEC);
 +  if (fd < 0)
++    fd = __open_nocancel (nixDefaultLocaleArchive, O_RDONLY|O_LARGEFILE|O_CLOEXEC);
++  if (fd < 0)
 +    fd = __open_nocancel ("/usr/lib/locale/locale-archive", O_RDONLY|O_LARGEFILE|O_CLOEXEC);
 +  return fd;
 +}
@@ -25,7 +36,7 @@ diff -Naur glibc-2.27-orig/locale/loadarchive.c glibc-2.27/locale/loadarchive.c
  
  /* Find the locale *NAMEP in the locale archive, and return the
     internalized data structure for its CATEGORY data.  If this locale has
-@@ -202,7 +219,7 @@
+@@ -202,7 +222,7 @@ _nl_load_locale_from_archive (int category, const char **namep)
        archmapped = &headmap;
  
        /* The archive has never been opened.  */
@@ -34,7 +45,7 @@ diff -Naur glibc-2.27-orig/locale/loadarchive.c glibc-2.27/locale/loadarchive.c
        if (fd < 0)
  	/* Cannot open the archive, for whatever reason.  */
  	return NULL;
-@@ -397,8 +414,7 @@
+@@ -397,8 +417,7 @@ _nl_load_locale_from_archive (int category, const char **namep)
  	  if (fd == -1)
  	    {
  	      struct stat64 st;
@@ -44,13 +55,23 @@ diff -Naur glibc-2.27-orig/locale/loadarchive.c glibc-2.27/locale/loadarchive.c
  	      if (fd == -1)
  		/* Cannot open the archive, for whatever reason.  */
  		return NULL;
-diff -Naur glibc-2.27-orig/locale/programs/locale.c glibc-2.27/locale/programs/locale.c
---- glibc-2.27-orig/locale/programs/locale.c	2018-02-01 11:17:18.000000000 -0500
-+++ glibc-2.27/locale/programs/locale.c	2018-02-17 22:36:39.726293213 -0500
-@@ -633,6 +633,24 @@
+diff --git a/locale/programs/locale.c b/locale/programs/locale.c
+index e2e309c2..64923735 100644
+--- a/locale/programs/locale.c
++++ b/locale/programs/locale.c
+@@ -47,6 +47,7 @@
+ #include <programs/xmalloc.h>
+ 
+ #define ARCHIVE_NAME COMPLOCALEDIR "/locale-archive"
++#define NIX_DEFAULT_LOCALE_ARCHIVE "/nix/lib/locale/locale-archive"
+ 
+ /* If set print the name of the category.  */
+ static int show_category_name;
+@@ -633,6 +634,26 @@ nameentcmp (const void *a, const void *b)
+ }
  
  
- static int
++static int
 +open_locale_archive (void)
 +{
 +  int fd = -1;
@@ -63,16 +84,17 @@ diff -Naur glibc-2.27-orig/locale/programs/locale.c glibc-2.27/locale/programs/l
 +  if (fd < 0)
 +    fd = open64 (ARCHIVE_NAME, O_RDONLY);
 +  if (fd < 0)
++    fd = open64 (NIX_DEFAULT_LOCALE_ARCHIVE, O_RDONLY);
++  if (fd < 0)
 +    fd = open64 ("/usr/lib/locale/locale-archive", O_RDONLY);
 +  return fd;
 +}
 +
 +
-+static int
+ static int
  write_archive_locales (void **all_datap, char *linebuf)
  {
-   struct stat64 st;
-@@ -644,7 +662,7 @@
+@@ -645,7 +666,7 @@ write_archive_locales (void **all_datap, char *linebuf)
    int fd, ret = 0;
    uint32_t cnt;
  
@@ -81,10 +103,19 @@ diff -Naur glibc-2.27-orig/locale/programs/locale.c glibc-2.27/locale/programs/l
    if (fd < 0)
      return 0;
  
-diff -Naur glibc-2.27-orig/locale/programs/locarchive.c glibc-2.27/locale/programs/locarchive.c
---- glibc-2.27-orig/locale/programs/locarchive.c	2018-02-01 11:17:18.000000000 -0500
-+++ glibc-2.27/locale/programs/locarchive.c	2018-02-17 22:40:51.245293975 -0500
-@@ -117,6 +117,22 @@
+diff --git a/locale/programs/locarchive.c b/locale/programs/locarchive.c
+index dccaf04e..b52787c9 100644
+--- a/locale/programs/locarchive.c
++++ b/locale/programs/locarchive.c
+@@ -58,6 +58,7 @@
+ extern const char *output_prefix;
+ 
+ #define ARCHIVE_NAME COMPLOCALEDIR "/locale-archive"
++#define NIX_DEFAULT_LOCALE_ARCHIVE "/nix/lib/locale/locale-archive"
+ 
+ static const char *locnames[] =
+   {
+@@ -117,6 +118,24 @@ prepare_address_space (int fd, size_t total, size_t *reserved, int *xflags,
  }
  
  
@@ -99,6 +130,8 @@ diff -Naur glibc-2.27-orig/locale/programs/locarchive.c glibc-2.27/locale/progra
 +  if (path && fd < 0)
 +    fd = open64 (path, flags);
 +  if (fd < 0)
++    fd = open64 (NIX_DEFAULT_LOCALE_ARCHIVE, flags);
++  if (fd < 0)
 +    fd = open64 (archivefname, flags);
 +  return fd;
 +}
@@ -107,7 +140,7 @@ diff -Naur glibc-2.27-orig/locale/programs/locarchive.c glibc-2.27/locale/progra
  static void
  create_archive (const char *archivefname, struct locarhandle *ah)
  {
-@@ -578,7 +594,7 @@
+@@ -578,7 +597,7 @@ open_archive (struct locarhandle *ah, bool readonly)
    while (1)
      {
        /* Open the archive.  We must have exclusive write access.  */
@@ -116,3 +149,16 @@ diff -Naur glibc-2.27-orig/locale/programs/locarchive.c glibc-2.27/locale/progra
        if (fd == -1)
  	{
  	  /* Maybe the file does not yet exist? If we are opening
+diff --git a/sysdeps/generic/unsecvars.h b/sysdeps/generic/unsecvars.h
+index 5ea8a4a2..1eb821ad 100644
+--- a/sysdeps/generic/unsecvars.h
++++ b/sysdeps/generic/unsecvars.h
+@@ -24,6 +24,8 @@
+   "LD_SHOW_AUXV\0"							      \
+   "LD_USE_LOAD_BIAS\0"							      \
+   "LOCALDOMAIN\0"							      \
++  "LOCALE_ARCHIVE\0"							      \
++  "LOCALE_ARCHIVE_2_27\0"						      \
+   "LOCPATH\0"								      \
+   "MALLOC_TRACE\0"							      \
+   "NIS_PATH\0"								      \
