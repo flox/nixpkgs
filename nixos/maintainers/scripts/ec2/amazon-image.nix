@@ -4,6 +4,21 @@ with lib;
 
 let
   cfg = config.amazonImage;
+
+  imageBuilder = diskopts: if config.ec2.zfsRoot then
+    (import ../../../lib/make-zfs-image.nix ({
+      includeChannel = false;
+      poolProperties = {
+        ashift = 12;
+      };
+    } // diskopts))
+  else
+    (import ../../../lib/make-disk-image.nix ({
+      fsType = "ext4";
+      partitionTableType = if config.ec2.efi then "efi"
+                           else if config.ec2.hvm then "legacy+gpt"
+                           else "none";
+    } // diskopts));
 in {
 
   imports = [ ../../../modules/virtualisation/amazon-image.nix ];
@@ -41,7 +56,8 @@ in {
 
     sizeMB = mkOption {
       type = with types; either (enum [ "auto" ]) int;
-      default = if config.ec2.hvm then 2048 else 8192;
+      type = types.int;
+      default = if config.ec2.hvm then 8192 else 8192;
       example = 8192;
       description = "The size in MB of the image";
     };
@@ -53,15 +69,13 @@ in {
     };
   };
 
-  config.system.build.amazonImage = import ../../../lib/make-disk-image.nix {
+# need to include some nixos config stuff for ZFS's mounts....
+
+  config.system.build.amazonImage = imageBuilder {
     inherit lib config;
     inherit (cfg) contents format name;
     pkgs = import ../../../.. { inherit (pkgs) system; }; # ensure we use the regular qemu-kvm package
-    partitionTableType = if config.ec2.efi then "efi"
-                         else if config.ec2.hvm then "legacy+gpt"
-                         else "none";
     diskSize = cfg.sizeMB;
-    fsType = "ext4";
     configFile = pkgs.writeText "configuration.nix"
       ''
         { modulesPath, ... }: {
@@ -71,6 +85,9 @@ in {
           ''}
           ${optionalString config.ec2.efi ''
             ec2.efi = true;
+          ''}
+          ${optionalString config.ec2.zfsRoot ''
+            ec2.zfsRoot = true;
           ''}
         }
       '';
