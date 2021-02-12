@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     freetype
   ];
 
-  cargoSha256 = "04359gf9mirczqwh8jv3rf0cc4pp05r8ncqyz0n8r7x5qv77kgcp";
+  cargoSha256 = "0zfaipbfqarkvdyxjkyk9854s4zifkp8c8v1y3jpcj4zvzyvf6ar";
 
   meta = with lib; {
     description = "Unicode tool with a terminal user interface";

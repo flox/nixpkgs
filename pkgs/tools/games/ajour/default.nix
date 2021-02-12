@@ -43,7 +43,7 @@ in rustPlatform.buildRustPackage rec {
     sha256 = "sha256-ZN62RIQEokailZRBQUq8nX4Eq/b9GGPmxln8j5KGW+8=";
   };
 
-  cargoSha256 = "sha256-tcC8GfEeHaM7XcAXw56/wdygfGPj4vOgn5sZd0KuGkA=";
+  cargoSha256 = "sha256-cHz74CSZBLNz1U6i77wx5cjhbYfVn6s4XGWSa/hQnao=";
 
   nativeBuildInputs = [
     autoPatchelfHook
