@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-rwoEZnxh0x+xaggJuoeSjE1ctF43ChW5awcDJyoWioA=";
   };
 
-  cargoSha256 = "sha256-ey/fUHkPoWjWlLjh1WNpwMKOkdQKgFYcLwQdx2RQ3CI=";
+  cargoSha256 = "sha256-SnSChy7spzdAom81XZl10vd6sZkwzFb+uJud+JJg0VE=";
 
   meta = with lib; {
     homepage = "https://proxy.vulpes.one/gemini/gem.limpet.net/agate";

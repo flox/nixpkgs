@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "159fwjy70n6lvnhdwv65azgi03r5qcc2m2zpzgz0k3r6cy06faxj";
   };
 
-  cargoSha256 = "1bfs8dy08799r6d63sb33zwcxas3gzp7jvcxv3w8n64gffan8f2n";
+  cargoSha256 = "15ibxnqz5s5cwppbqr0zf77f8nqk17iqcaymfqjs43cpvjcw5rjh";
 
   preBuild = ''
     rmdir ./assets
