@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1m5yj9412kjlnqi1nwh44i627ip0kqcbhvwgh87gl5vgd2a0m091";
   };
 
-  cargoSha256 = "0y4c1gja0i3h2whjpm74yf3z1y85pkwmpmrl2fjsyy0mn493hzv8";
+  cargoSha256 = "1d82yykazcnwqc83sab9qhm1nkwdicq561rlj3h7w2h6wb3ypiiq";
 
   meta = with stdenv.lib; {
     description = "Slice and dice logs on the command line";

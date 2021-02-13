@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ openssl ] ++
     stdenv.lib.optionals stdenv.isDarwin [ Security ];
 
-  cargoSha256 = "0rnf9agpzlvk53x8zrg32w6r0gxcbank3fs32ydv53frvqv1spj3";
+  cargoSha256 = "19m9ilw673iz76i74a7xy8nb7963ci5w88g1l3swginjbkn017ny";
 
   meta = with stdenv.lib; {
     description = "A statically typed language for the Erlang VM";

@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "0x40qzgw9zcih4q6mzclb7gqkw8h76hrmqzmg6nimpla29jcdxss";
   };
 
-  cargoSha256 = "1pfl7cblf7d4ci514vlkdh1ybgby71x4aszxmlsrqmn92bq56jys";
+  cargoSha256 = "1qrfibalzk2qriq0kixx7njfygwkgja82qirja2y6s8frj2vx7h3";
 
   cargoBuildFlags = [ "--no-default-features" "--features" "${lib.concatStringsSep "," features}" ];
 

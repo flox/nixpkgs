@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "03azqy4i15kfpd0gzjaw2di9xva4xdf95yb65b93z3y9y5wy4krc";
   };
 
-  cargoSha256 = "1rxrdavj07i7qa5rf1i3aj7zdcp7c6lrg8yiy75r6lm4g98izzww";
+  cargoSha256 = "1npzy851n1agx2xh7hnypl96503pdh3zj89msb5cwzd9yz70binx";
 
   meta = with stdenv.lib; {
     description = "A high performance code minimap render";

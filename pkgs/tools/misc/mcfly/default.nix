@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     install -Dm644 -t $out/share/mcfly mcfly.fish
   '';
 
-  cargoSha256 = "1c8qjkpc8wi095zzmgd05721kdf1knh9la91l081mvwa3inwk6ax";
+  cargoSha256 = "0ljf6nj5k2c885p4pgys7n0cn24lxqlk1pi0wahkpji1bngd3vmy";
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/cantino/mcfly";

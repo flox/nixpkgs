@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage {
   # too many impure/platform-dependent tests
   doCheck = false;
 
-  cargoSha256 = "186hwzdpy7j0gw7491qx02vy4di5md47hipf1xxi1qccvmcfghwh";
+  cargoSha256 = "19x3nvdgjn4v399dfjads9bi3vr8j00516mj955gi3j4fw2p857c";
 
   makeFlags =
     [ "CARGO=${cargo}/bin/cargo" "PREFIX=$(out)" "PROFILE=release" "INSTALLDIR_MAN=$(out)/share/man/man1" ]

@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     done
   '';
 
-  cargoSha256 = "02djpwvwrrp7f0ifiypx1cr1v4bkqxrhqfhy0abfjszza95fjasv";
+  cargoSha256 = "0d7n83l55595k3dc5skmyqflfyaz81yhnbbcz5n2waaimi27vyka";
 
   checkFlags = [
     "--skip=directory_in_home"

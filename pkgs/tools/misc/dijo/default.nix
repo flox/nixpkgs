@@ -10,7 +10,7 @@ rustPlatform.buildRustPackage {
     rev = "v${version}";
     sha256 = "1lcvj0pri5v64zygkf2p24vr72y39agrq1r3kb8dfgz8yy3vcz0a";
   };
-  cargoSha256 = "0pm048xf8hkva8q8fjmhrdnk7h2im28ix7xy784xwkkdnilm4j7f";
+  cargoSha256 = "16ic33bnqi1wmzk5wbpvjilpdi98lj9dridyllra5ml8mbgx9i5q";
 
   meta = with lib; {
     description = "Scriptable, curses-based, digital habit tracker";

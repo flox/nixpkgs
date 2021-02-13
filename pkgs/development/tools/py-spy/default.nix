@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   checkInputs = [ python3 ];
 
-  cargoSha256 = "0hrzmpwd2k4l8gjbry8ddrkv9q9qh8ag096md4q0fyn5bgnxhkah";
+  cargoSha256 = "1akkqwgf05hmziqzgv1b18jvia1iq5x9fxmlg1s6q5dbjjagr2ix";
 
   meta = with stdenv.lib; {
     description = "Sampling profiler for Python programs";

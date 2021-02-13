@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
   # tests are failing, reported at upstream: https://github.com/atanunq/viu/issues/40
   doCheck = false;
 
-  cargoSha256 = "18rskn8fchlgk295yk8sc2g1x6h43rmhqif871hgzdx1i35sbajr";
+  cargoSha256 = "12irijhnjd115s00k1ag5mb814gn7563j30lap5g38fasdq0dlqq";
 
   meta = with lib; {
     description = "A command-line application to view images from the terminal written in Rust";

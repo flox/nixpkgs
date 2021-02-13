@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   installPhase = "make prefix='$(out)' install";
 
-  cargoSha256 = "0byc0pqa1w2qnfrx3psrzdq1c8qjslbmzxg872b9v6fr5d4c9cvg";
+  cargoSha256 = "0jqy4xb6dlaw33s2bd7drw5dcmayd80vlwcb3fhs8j57dc3wdwd1";
 
   doCheck = false;
 

@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "0g9zr2afi103cwv6ikpmmyh5v055dh47l3wj9a1kbxgms0953iwh";
   };
 
-  cargoSha256 = "0hydlaibanw2vjyxymfbzgwwk2qjv7jsz15gn66ga5vknsqihcrx";
+  cargoSha256 = "1pv0l22mv41zpahx3znnac0grz851jqjj6x34x62nrcnn3hwgyvs";
 
   meta = with lib; {
     description = "Arbitrary-precision unit-aware calculator";

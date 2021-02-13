@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     xorg.libXrender
   ];
 
-  cargoSha256 = "05kwfcbzjyyfhiqklhhlv06pinzw9bry4j8l9lk3k04c1q30gzkw";
+  cargoSha256 = "1iqcz1cpwgpmij7l3jgysdcp5rc3syjmcj40rdylyl73f1jzjpk5";
 
   meta = with stdenv.lib; {
     description = "An Adobe Flash Player emulator written in the Rust programming language.";

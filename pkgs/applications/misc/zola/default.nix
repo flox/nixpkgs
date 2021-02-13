@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256:0fb227kgani32ljnw73a0h5zn5361z5lraf79y34a0chcby2qv35";
   };
 
-  cargoSha256 = "sha256:0ilfr32zcajag05qcpwi5ixz250s427i4xrjf4wrk7qy32bblnr5";
+  cargoSha256 = "sha256:0gbfs2dz2a3qz7pvgxpx9dbz5qhcl7333k7xcq3izv8a9c042s05";
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [ openssl oniguruma ]

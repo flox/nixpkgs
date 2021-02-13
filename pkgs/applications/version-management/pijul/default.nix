@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-dSwQlALN0E87o86sasuNFPTZN6SRCuxP6pI7wi4uRf4";
   };
 
-  cargoSha256 = "sha256-Xwk5bX9o41M/1BmkOpAscGQHikhzV+9qAwVz0qI7FRA";
+  cargoSha256 = "sha256-j8rdN99olgBfVzl3BR2dJgv/aK6FQNtkzNpvTynm0L8";
 
   cargoBuildFlags = stdenv.lib.optional gitImportSupport "--features=git";
 

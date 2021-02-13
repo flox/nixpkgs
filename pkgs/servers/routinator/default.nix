@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-rxCgW4cuYNSJ9P+cBYWAYJsghz2bp9mpAh6AuwLoV5o=";
   };
 
-  cargoSha256 = "0fcp4b2b0mjddj4blr20gvp1ih3ldzzr04rm1m06i8d2lnl68i79";
+  cargoSha256 = "1fccb75cvranz113pswr18sgp0v0bv0k4w572xyzz7ips1iml0g9";
 
   meta = with stdenv.lib; {
     description = "An RPKI Validator written in Rust";
