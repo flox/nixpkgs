@@ -119,6 +119,12 @@ stdenv.mkDerivation ({
         sha256 = "0irj60hs2i91ilwg5w7sqrxb695c93xg0ik7yhhq9irprd7fidn4";
       })
 
+      /* [PATCH][BZ #15533] Avoid unnecessary slowdown from profiling with audit. */
+      (fetchurl {
+        url = "https://raw.githubusercontent.com/solus-project/runtime-snaps/master/support_packages/glibc/files/perf/fix-ld-audit-performance.patch";
+        sha256 = "0sv8hmbgp07krqn3rc954zg1xd6g4brbi0p11cpby512gnvj6lbs";
+      })
+
       ./fix-x64-abi.patch
     ]
     ++ lib.optional stdenv.hostPlatform.isMusl ./fix-rpc-types-musl-conflicts.patch
