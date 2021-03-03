@@ -57,8 +57,7 @@ in {
     sizeMB = mkOption {
       type = with types; either (enum [ "auto" ]) int;
       type = types.int;
-      default = if config.ec2.hvm then 8192 else 8192;
-      example = 8192;
+      default = if config.ec2.hvm then 3072 else 8192;
       description = "The size in MB of the image";
     };
 
