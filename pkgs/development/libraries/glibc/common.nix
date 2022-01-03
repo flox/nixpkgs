@@ -121,12 +121,6 @@ stdenv.mkDerivation ({
         sha256 = "0irj60hs2i91ilwg5w7sqrxb695c93xg0ik7yhhq9irprd7fidn4";
       })
 
-      /* [PATCH][BZ #15533] Avoid unnecessary slowdown from profiling with audit. */
-      (fetchurl {
-        url = "https://raw.githubusercontent.com/solus-project/runtime-snaps/master/support_packages/glibc/files/perf/fix-ld-audit-performance.patch";
-        sha256 = "0sv8hmbgp07krqn3rc954zg1xd6g4brbi0p11cpby512gnvj6lbs";
-      })
-
       ./fix-x64-abi.patch
 
       /* https://github.com/NixOS/nixpkgs/pull/137601 */
@@ -157,20 +151,6 @@ stdenv.mkDerivation ({
       -#define LIBIDN2_SONAME "libidn2.so.0"
       +#define LIBIDN2_SONAME "${lib.getLib libidn2}/lib/libidn2.so.0"
       EOF
-
-      # Encode a default path for locating tzdata in the absence of an
-      # overriding TZDIR environment variable. This allows Nix packages
-      # to continue working in situations where it is not possible to
-      # reliably configure the environment. For example, this protects
-      # against breakage that can occur with the use of `env -i`.
-      #
-      # Without this parameter the default behavior is to look for
-      # $out/share/zoneinfo which never succeeds/exists in any case.
-      #
-      # There is no 'zonedir' configure option, so we must instead it to
-      # configparms. /nix/etc/zoneinfo is chosen out of symmetry with
-      # both /nix/var and /etc/zoneinfo as found on NixOS.
-      echo "zonedir = /nix/etc/zoneinfo" >> configparms
     '';
 
   configureFlags =
