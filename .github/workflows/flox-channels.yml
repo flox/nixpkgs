@@ -72,6 +72,8 @@ jobs:
               # Rebase against upstream Monday-Wednesday only.
               echo '::group::rebase against upstream'
               git checkout unstable
+              # gh configures the `upstream` repo to only contain the current branch, reconfigure to fetch all
+              git remote set-branches upstream '*'
               git fetch upstream
               git tag unstable.$today
               tags="$tags unstable.$today"
