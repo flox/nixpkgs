@@ -30,7 +30,7 @@ jobs:
           fi
 
           # on any other day set guard to true
-          run: echo "::set-output name=run::true"
+          echo "::set-output name=run::true"
 
   flox-channels:
     needs: [update-guard]
