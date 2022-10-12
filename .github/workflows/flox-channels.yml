@@ -47,7 +47,7 @@ jobs:
 
       - name: Configure Git Env
         run: |
-          git config --global user.email "automations@floxdev.com"
+          git config --global user.email "technology@floxdev.com"
           git config --global user.name "Flox Nixpkgs Updater"
 
           gh repo clone ${{ github.repository }} ./
