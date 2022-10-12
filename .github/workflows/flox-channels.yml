@@ -25,7 +25,8 @@ jobs:
           if [ $dow -eq 4 -o $dow -eq 5 -o $dow -eq 7 ]
           then
             echo '::notice title=Skip Update::No update performed on Thursday, Friday, or Sunday'
-
+            # set empty output so github can read the variable
+            echo "::set-output name=run::"
             exit 0
           fi
 
