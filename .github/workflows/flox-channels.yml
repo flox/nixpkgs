@@ -21,11 +21,20 @@ jobs:
 
     name: "Periodic pull from upstream"
     steps:
+      - name: Configure Git Env
+        run: |
+          git config --global user.email "automations@floxdev.com"
+          git config --global user.name "Flox Nixpkgs Updater"
+
+          gh repo clone ${{ github.repository }} ./
+
+          # gh configures the `upstream` repo to only contain the current branch, reconfigure to fetch all
+          git remote set-branches upstream '*'
+          git fetch upstream
+
       - name: run update routine
         run: |
           set -e
-
-          gh repo clone ${{ github.repository }} ./
 
           # Today's date in YYYYMMDD format.
           today=$(date +%Y%m%d)
@@ -72,9 +81,6 @@ jobs:
               # Rebase against upstream Monday-Wednesday only.
               echo '::group::rebase against upstream'
               git checkout unstable
-              # gh configures the `upstream` repo to only contain the current branch, reconfigure to fetch all
-              git remote set-branches upstream '*'
-              git fetch upstream
               git tag unstable.$today
               tags="$tags unstable.$today"
               git rebase upstream/nixos-unstable
