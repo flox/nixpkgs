@@ -19,14 +19,12 @@ jobs:
 
     name: "Periodic pull from upstream"
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # we want to pull the whole thing
-
       - name: run update routine
         run: |
           set -x
           set -e
+
+          gh repo clone ${{ github.repository }}
 
           # Today's date in YYYYMMDD format.
           today=$(date +%Y%m%d)
