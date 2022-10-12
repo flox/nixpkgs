@@ -11,11 +11,7 @@ on:
 jobs:
   flox-channels:
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    permissions:
-      pull-requests: write  # for peter-evans/create-or-update-comment to create or update comment
-      contents: write
-      actions: write # To rebase the update action
+      GH_TOKEN: ${{ secrets.FLOXBOT_GITHUB_CI }}
     if: github.repository_owner == 'flox'
     runs-on: ubuntu-latest
 
