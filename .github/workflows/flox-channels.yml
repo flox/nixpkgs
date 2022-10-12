@@ -9,16 +9,41 @@ on:
     - cron:  '* 8 * * *'
 
 jobs:
+
+  update-guard:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{steps.guard.output.run}}
+    steps:
+      - name: Check whether to update
+        id: guard
+        run: |
+          dow=$(date +%u)
+
+          # Do nothing on a Thursday, Friday, or Sunday.
+          if [ $dow -eq 4 -o $dow -eq 5 -o $dow -eq 7 ]
+          then
+            echo '::notice title=Skip Update::No update performed on Thursday, Friday, or Sunday'
+
+            exit 0
+          fi
+
+          # on any other day set guard to true
+          run: echo "::set-output name=run::true"
+
   flox-channels:
+    needs: [update-guard]
+    if: github.repository_owner == 'flox' && ${{ needs.update-guard.outputs.run }} == 'true'
     env:
       GH_TOKEN: ${{ secrets.NIX_GIT_TOKEN_TEMP }}
-    if: github.repository_owner == 'flox'
+
     runs-on: ubuntu-latest
 
     # TODO: implement configurable merge based on matrix
 
     name: "Periodic pull from upstream"
     steps:
+
       - name: Configure Git Env
         run: |
           git config --global user.email "automations@floxdev.com"
@@ -39,13 +64,6 @@ jobs:
           today=$(date +%Y%m%d)
           # Day of week (1-7)
           dow=$(date +%u)
-
-          # Do nothing on a Thursday, Friday, or Sunday.
-          if [ $dow -eq 4 -o $dow -eq 5 -o $dow -eq 7 ]
-          then
-              echo '::notice title=Skip Update::No update performed on Thursday, Friday, or Sunday'
-              exit 0
-          fi
 
           # Running list of tags to be pushed.
           tags=""
