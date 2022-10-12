@@ -45,13 +45,12 @@ jobs:
 
     name: "Periodic pull from upstream"
     steps:
-
       - name: Configure Git Env
         run: |
           git config --global user.email "technology@floxdev.com"
           git config --global user.name "Flox Nixpkgs Updater"
 
-        # gh automatically sets the `upstream` remote to github:NixOS/nixpkgs
+          # gh automatically sets the `upstream` remote to github:NixOS/nixpkgs
           gh repo clone ${{ github.repository }} ./
           gh auth setup-git
 
