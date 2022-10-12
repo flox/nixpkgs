@@ -11,7 +11,7 @@ on:
 jobs:
   flox-channels:
     env:
-      GH_TOKEN: ${{ secrets.FLOXBOT_GITHUB_CI }}
+      GH_TOKEN: ${{ secrets.NIX_GIT_TOKEN }}
     if: github.repository_owner == 'flox'
     runs-on: ubuntu-latest
 
