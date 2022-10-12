@@ -116,6 +116,6 @@ jobs:
         uses: peter-evans/create-or-update-comment@v2
         if: ${{ failure() }}
         with:
-          issue-number: 1
+          issue-number: 4
           body: |
             Periodic update has [failed](https://github.com/NixOS/nixpkgs/actions/runs/${{ github.run_id }}).
