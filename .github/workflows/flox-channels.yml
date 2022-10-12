@@ -27,6 +27,7 @@ jobs:
           git config --global user.name "Flox Nixpkgs Updater"
 
           gh repo clone ${{ github.repository }} ./
+          gh auth setup-git
 
           # gh configures the `upstream` repo to only contain the current branch, reconfigure to fetch all
           git remote set-branches upstream '*'
