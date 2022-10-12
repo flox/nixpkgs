@@ -15,6 +15,7 @@ jobs:
     permissions:
       pull-requests: write  # for peter-evans/create-or-update-comment to create or update comment
       contents: write
+      actions: write # To rebase the update action
     if: github.repository_owner == 'flox'
     runs-on: ubuntu-latest
 
