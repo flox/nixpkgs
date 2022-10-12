@@ -80,6 +80,8 @@ jobs:
               echo '::endgroup::'
           fi
 
+          echo "::notice title=Summary::New tags: $tags"
+
           git push origin $tags
           git push -f --all
 
