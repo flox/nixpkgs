@@ -10,6 +10,8 @@ on:
 
 jobs:
   flox-channels:
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       pull-requests: write  # for peter-evans/create-or-update-comment to create or update comment
     if: github.repository_owner == 'flox'
