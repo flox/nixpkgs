@@ -118,4 +118,6 @@ jobs:
         with:
           issue-number: 4
           body: |
-            Periodic update has [failed](https://github.com/NixOS/nixpkgs/actions/runs/${{ github.run_id }}).
+            Periodic update has [failed](https://github.com/flox/nixpkgs/actions/runs/${{ github.run_id }}).
+
+            @flox/internal
